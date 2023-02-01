@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Appointment App</title>
+</head>
+<body>
+    <form name="appointmentform" onsubmit="saveTocloud(event)">
+        <lable>Name</lable>
+        <input id="name" type="text" name="username" required/>
+        <lable>Emailid</lable>
+        <input id="email" type="email" name="EmailId" required/>
+        <lable>Phone number</lable>
+        <input id="ph-no" type="tel" name="phonenumber" />
+        <button>Submit</button>
+    </form>
+    <ul id="Listofusers"></ul>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.0/axios.min.js"></script>
+    <script>
+        function saveTocloud(event){
+            event.preventDefault();
+            const name=event.target.username.value;
+            const email=event.target.EmailId.value;
+            const phonenumber=event.target.phonenumber.value;
+            const obj={
+                name,
+                email,
+                phonenumber
+            }
+            axios.post("https://crudcrud.com/api/0233449ed79946b7b4a9aff4625d0035/appointmentdata",obj)
+                .then((response)=>{
+                    shownewusersonscreen(response.data)
+                    console.log(response.data)
+                })
+                .catch((err)=>{
+                    console.log(err)
+                })
+        }
+        function shownewusersonscreen(appointmentform){
+            if(appointmentform.username.value && appointmentform.EmailId.value && appointmentform.phonenumber.value){
+                var username=document.getElementById("name").value;
+                var email=document.getElementById("email").value;
+                var phonenumber=document.getElementById("ph-no").value;
+                document.write(username);
+                document.write(email);
+                document.write(phonenumber);
+            }
+            else{
+                alert('please enter valid details')
+            }
+        }
+    </script>
+</body>
+</html>
